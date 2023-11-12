@@ -11,11 +11,11 @@
 							<meta itemprop="position" content="1" />
 						</span><span class="breadcrumbs__item d-inline-flex" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
 							<a itemprop="item" class="breadcrumbs__link" href="/cart">
-								<span itemprop="name">Корзина</span>
+								<span itemprop="name">Записаться</span>
 							</a>
 							<meta itemprop="position" content="2" />
 						</span></nav>
-<h1>Корзина покупок</h1>
+<h1>Записи</h1>
 <table class="cart">
 
   <tbody>
@@ -69,7 +69,7 @@
                 width: 30px;
           }
       </style>
-      <a href="{% url 'home_page' %}" class="btn aa" style="margin: 5px; backgound: white; border-color: orangered; color: white;">В каталог</a>
+      <a href="{% url 'home_page' %}" class="btn aa" style="margin: 5px; backgound: white; border-color: за; color: white;">В каталог</a>
 
       <style>
           <style>
@@ -94,12 +94,12 @@
       </style>
 
     {% if request.user.is_authenticated %}{% if cart %}
-    <a href="order/"><button class="btn aa" style="width: 40px; margin: 5px; backgound: white; border-color: orangered; color: white">Оформить заказ</button></a>
+    <a href="order/"><button class="btn aa" style="width: 40px; margin: 5px; backgound: white; border-color: deepskyblue; color: white">Записаться</button></a>
 {% else %}
-    <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-html="true" data-bs-content="<div><img src='{% static 'cart/red_flag.svg' %}' class='loginimage'><span>Невозможно оформить заказ с пустой корзиной, добавьте товары</span></div>">Оформить заказ
+    <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-html="true" data-bs-content="<div><img src='{% static 'cart/red_flag.svg' %}' class='loginimage'><span>зазможно записаться без выбранных услуг, добавьте услуги</span></div>">Записаться
   </button>
-{% endif %}{% else %}<button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-html="true" data-bs-content="<a href='{% url 'login' %}'><img src='{% static 'user/login.svg' %}' class='loginimage'><span>Войдите в аккаунт, чтобы оформить заказ</span></a>">
-    Оформить заказ
+{% endif %}{% else %}<button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-html="true" data-bs-content="<a href='{% url 'login' %}'><img src='{% static 'user/login.svg' %}' class='loginimage'><span>Войдите в аккаунт, чтобы записаться</span></a>">
+    Записаться
   </button>{% endif %}
 
 

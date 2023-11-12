@@ -38,7 +38,7 @@
                     }
 
                     .regi {
-                        border-color: orangered;
+                        border-color: deepskyblue;
                         border-radius: 7px;
                         height: 52px;
                         background: none;
@@ -64,11 +64,9 @@
 
                 <a href="{% url 'edit' %}"><button class="regi" data-toggle="modal" data-target="#editProfileModal">Изменить профиль</button></a>
                 <a href="{% url 'add_animal' %}"><button class="regi" data-toggle="modal" data-target="#addAnimalModal">Добавить животное</button></a>
-            </div>
-            						<a href="{% url 'logout' %}"><button type="submit" class="regi" style="margin: 50px; background: #e83333;"><img src="{% static 'user/logout.svg' %}" style="width: 30px; margin: 5px;">Выйти</button></a>
 
-
-        {% for animal, appointments_list in appointments.items %}
+                <h2>Записи Ваших животных:</h2>
+                {% for animal, appointments_list in appointments.items %}
 
 
     {% if appointments_list %}
@@ -81,6 +79,10 @@
 
     {% endif %}
 {% endfor %}
+            </div>
+            						<a href="{% url 'logout' %}"><button type="submit" class="regi" style="margin: 50px; background: #e83333;"><img src="{% static 'user/logout.svg' %}" style="width: 30px; margin: 5px;">Выйти</button></a>
+
+
 
 
 

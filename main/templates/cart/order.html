@@ -5,35 +5,76 @@
 
 <div class="content">
   <div class="container">
-    <nav class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList"><span class="breadcrumbs__item d-inline-flex" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-							<a itemprop="item" class="breadcrumbs__link" href="/">
-								<span itemprop="name">Главная</span>
-							</a>
-							<meta itemprop="position" content="1" />
-						</span><span class="breadcrumbs__item d-inline-flex" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-							<a itemprop="item" class="breadcrumbs__link" href="/cart/order">
-								<span itemprop="name">Оформление заказа</span>
-							</a>
-							<meta itemprop="position" content="2" />
-						</span></nav>
+    <nav class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+      <span class="breadcrumbs__item d-inline-flex" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a itemprop="item" class="breadcrumbs__link" href="/">
+          <span itemprop="name">Главная</span>
+        </a>
+        <meta itemprop="position" content="1" />
+      </span>
+      <span class="breadcrumbs__item d-inline-flex" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a itemprop="item" class="breadcrumbs__link" href="/cart/order">
+          <span itemprop="name">Оформление заказа</span>
+        </a>
+        <meta itemprop="position" content="2" />
+      </span>
+    </nav>
     <h1>Оформление заказа</h1>
     <form method="post">
       {% csrf_token %}
       <style>
+        #id_animal,
+        #id_animal:focus {
+          border-color: deepskyblue;
+          border-radius: 7px;
+          height: 52px;
+          width: 200px;
+          border-width: 2px;
+        }
+
+        #id_animal {
+          width: 200px;
+          padding: 5px;
+        }
+
+        #id_animal option {
+          padding: 5px;
+        }
+      </style>
+
+      <style>
+        #id_animal,
+        #id_animal:focus {
+          border-color: deepskyblue;
+          border-radius: 7px;
+          height: 50px;
+          width: 200px;
+          border-width: 2px;
+        }
+
+        #id_animal {
+          width: 200px;
+        }
+
         .helptext {
           display: none;
         }
 
-        #id_phonenumber, #id_time_date, #id_adress, #id_comment{
-          border-color: orangered;
+        #id_phonenumber,
+        #id_time_date,
+        #id_adress,
+        #id_comment,
+        #id_animal {
+          border-color: deepskyblue;
           border-radius: 7px;
           height: 52px;
         }
 
-        #id_delivery{
+        #id_delivery {
           width: 20px;
-          heoght: 20px;
+          height: 20px;
         }
+
         .form-label {
           display: inline-block;
           min-width: 200px;
@@ -45,13 +86,13 @@
           padding: 0;
           color: #CC0000;
         }
-        #id_comment{
-            padding: 9px;
-            border-width: 2px;
-            height: 150px;
-            width: 350px;
-            }
 
+        #id_comment {
+          padding: 9px;
+          border-width: 2px;
+          height: 150px;
+          width: 350px;
+        }
       </style>
       <script>
         function toggleAddressField() {
@@ -67,14 +108,27 @@
             commentField.style.display = "none";
           }
         }
-
       </script>
-      <div class="form-error">{{ form.non_field_errors }}</div>
+       {% if form.errors %}
+  <div class="form-error">
+    <div class="alert alert-danger" role="alert">
+      {{ form.errors }}
+    </div>
+  </div>
+{% endif %}
+{% if error_message %}
+  <div class="form-error">
+    <div class="alert alert-danger" role="alert">
+      {{ error_message }}
+    </div>
+  </div>
+{% endif %}
+
+
       {% for f in form %}
         {% if f.name == "delivery" %}
           <h4>
             {{ f }} <span onclick="toggleAddressField()">Заказать с доставкой</span>
-
           </h4>
         {% elif f.name != "adress" %}
           <h4>
@@ -89,16 +143,16 @@
         {% endif %}
         <div class="form-error">{{ f.errors }}</div>
       {% endfor %}
-        {% for field in form.animals %}
+      {% for field in form.animals %}
         <div>
           {{ field }}
           <label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
         </div>
       {% endfor %}
+
       <button type="submit" class="btn">Оформить</button>
     </form>
-      <a href="/cart" class="btn" style="margin-top: 30px; background: white; border-color: orangered; border-radius: 12px; color: black;">В корзину</a>
   </div>
-
 </div>
+
 {% endblock %}

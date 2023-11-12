@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
-from .forms import RegisterUserForm, LoginUserForm, EditClientForm, EditUserForm, EditAnimalForm
+from .forms import RegisterUserForm, LoginUserForm, EditClientForm, EditAnimalForm, EditUserForm
 from main.models import Client, Animal, Appointment
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
@@ -123,21 +123,50 @@ def add_animal(request):
 
     return render(request, 'user/add_animal.html', {'animal_form': animal_form})
 
+
+from pprint import pprint
+
+
 @login_required(login_url='login')
 def edit_account(request):
-    user_form = EditClientForm(instance=request.user)
-    animal_forms = [EditAnimalForm(instance=animal) for animal in Animal.objects.filter(owner=request.user.client)]
+    user_form = EditUserForm(instance=request.user)
+    animal_forms = []
 
     if request.method == "POST":
         user_form = EditUserForm(request.POST, instance=request.user)
-        animal_forms = [EditAnimalForm(request.POST, instance=animal) for animal in Animal.objects.filter(owner=request.user.client)]
 
-        if user_form.is_valid() and all(form.is_valid() for form in animal_forms):
+        if user_form.is_valid():
             user_form.save()
+            print("User form saved successfully.")
+        else:
+            print("User form is not valid.")
+            pprint(user_form.errors)
 
-            for form in animal_forms:
-                form.save()
+        for animal in Animal.objects.filter(owner=request.user.client):
+            form = EditAnimalForm(request.POST, instance=animal, prefix=f'animal_{animal.id}')
+            if form.is_valid():
+                animal_instance = form.save(commit=False)
+                animal_instance.save()
+                animal_forms.append((animal_instance, form))
+                print(f"Animal form for {animal_instance} saved successfully.")
+            else:
+                animal_forms.append((animal, form))
+                print(f"Animal form for {animal_instance} is not valid.")
+                pprint(form.errors)
 
-            return redirect('account')
+        return redirect('account')
+
+    else:
+        # Используйте форму без POST-данных для отображения данных клиента
+        user_form = EditUserForm(instance=request.user)
+
+        # Добавьте существующие животные и их формы
+        for animal in Animal.objects.filter(owner=request.user.client):
+            form = EditAnimalForm(instance=animal, prefix=f'animal_{animal.id}')
+            animal_forms.append((animal, form))
 
     return render(request, 'user/edit_profile.html', {'user_form': user_form, 'animal_forms': animal_forms})
+
+
+
+

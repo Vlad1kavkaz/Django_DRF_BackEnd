@@ -32,7 +32,7 @@
         <h4 style="display:inline;font-weight:italic;">{{ el.name }} от</h4>
         <form method="post" action="{% url 'cart:cart_add' product_id=el.id %}">
     {% csrf_token %}
-    <input type="submit" value="{{ el.price }} ₽" class="add-to-cart">
+    <input type="submit" value="{{ el.price }} ₽" class="add-to-cart" style="background:white; border-color:deepskyblue; border-radius:7px;">
 </form>
     </div>
     {% endif %}
@@ -51,7 +51,7 @@
         <h4 style="display:inline;font-weight:italic;">{{ el.name }} от</h4>
         <form method="post" action="{% url 'cart:cart_add' product_id=el.id %}">
     {% csrf_token %}
-    <input type="submit" value="{{ el.price }} ₽" class="add-to-cart">
+    <input type="submit" value="{{ el.price }} ₽" class="add-to-cart" style="background:white; border-color:deepskyblue; border-radius:7px;">
 </form>
     </div>
     {% endif %}
@@ -70,7 +70,7 @@
         <h4 style="display:inline;font-weight:italic;">{{ el.name }} от</h4>
         <form method="post" action="{% url 'cart:cart_add' product_id=el.id %}">
     {% csrf_token %}
-    <input type="submit" value="{{ el.price }} ₽" class="add-to-cart">
+    <input type="submit" value="{{ el.price }} ₽" class="add-to-cart" style="background:white; border-color:deepskyblue; border-radius:7px;">
 </form>
     </div>
     {% endif %}
@@ -89,7 +89,7 @@
         <h4 style="display:inline;font-weight:italic;">{{ el.name }} от</h4>
         <form method="post" action="{% url 'cart:cart_add' product_id=el.id %}">
     {% csrf_token %}
-    <input type="submit" value="{{ el.price }} ₽" class="add-to-cart">
+    <input type="submit" value="{{ el.price }} ₽" class="add-to-cart" style="background:white; border-color:deepskyblue; border-radius:7px;">
 </form>
     </div>
     {% endif %}

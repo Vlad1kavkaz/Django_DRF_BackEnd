@@ -33,12 +33,25 @@
             </div>
             <div style="border-radius: 20px; border-color: orange;">
                 <style>
+                #id_email, #id_username, #id_password1, #id_password2, #id_animal{
+          border-color: deepskyblue;
+          border-radius: 7px;
+          height: 52px;
+          margin-top:15px;
+
+        }
+        [id^="id_animal_"] {
+    border-color: deepskyblue;
+    border-radius: 7px;
+    height: 52px;
+    margin-top: 15px;
+}
                     .helptext {
                         display: none
                     }
 
                     .regi {
-                        border-color: orangered;
+                        border-color: deepskyblue;
                         border-radius: 7px;
                         height: 52px;
                         background: none;
@@ -62,11 +75,13 @@
                     {% endfor %}
 
                     <h3>Изменить данные животных:</h3>
-                    {% for animal_form in animal_forms %}
-                        <h4><label class="form-label" for="{{ animal_form.id_for_label }}">{{ animal_form.label }}: </label>{{ animal_form }}
-                        </h4>
-                        <div class="form-error">{{ animal_form.errors }}</div>
-                    {% endfor %}
+                    {% for animal, form in animal_forms %}
+                    <div class="id_animal">
+    <h4><label class="form-label" for="{{ form.id_for_label }}">{{ form.label }}</label>{{ form }}</h4>
+                    </div>
+
+{% endfor %}
+
 
                     <button type="submit" class="regi" style="width: 170px; height: flex; display: inline-block;">Сохранить изменения</button>
                 </form>

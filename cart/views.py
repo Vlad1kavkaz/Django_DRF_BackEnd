@@ -1,13 +1,9 @@
-import datetime
-
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from main.models import Service, Appointment
 from django.contrib import messages
-
 from .cart import Cart
 from .forms import CartAddProductForm, AddressForm
-from django.conf import settings
 
 
 @require_POST
@@ -18,8 +14,6 @@ def cart_add(request, product_id):
     if form.is_valid():
         cd = form.cleaned_data
         cart.add(product=product, quantity=1)
-
-    print
     return redirect('cart:cart_detail')
 
 def cart_remove(request, product_id):
@@ -38,32 +32,40 @@ def cart_detail(request):
 
     return render(request, 'cart/detail.html', context)
 
+
+
 def order_show(request):
     cart = Cart(request)
     initial_values = {'adress': 'Самовывоз'}
     form = AddressForm(request.user, request.POST or None, initial=initial_values)
+    error_message = None  # Инициализируем переменную для хранения сообщения об ошибке
 
-    if request.method == 'POST' and form.is_valid():
-        phonenumber = form.cleaned_data['phonenumber']
-        time_date = form.cleaned_data['time_date']
-        email = request.user.email
-        comment = form.cleaned_data['comment']
+    if request.method == 'POST':
+        if form.is_valid():
+            time_date = form.cleaned_data['time_date']
+            selected_animal = form.cleaned_data['animal']
 
-        # Получите выбранных животных из формы
-        selected_animals = form.cleaned_data['animal']
-        service = Service
-        # Создайте новый экземпляр Appointment для каждого выбранного животного
-        for serv in cart.__iter__():
-            service = serv['product']
-        appointment = Appointment.objects.create(
-            date=time_date,
-            animal=selected_animals,  # Используйте выбранное животное
-            service=service # Замените на ваш объект Service
-            )
+            # Проверка соответствия видов животного и услуги
+            for serv in cart:
+                service = serv['product']
+                if service.animal_species != selected_animal.species:
+                    error_message = 'Выбранное животное не соответствует виду услуги.'
+                    break
 
-        for item in cart.__iter__():
-            cart_remove(request, item['product'].id)
+            if not error_message:
+                # Создание объекта Appointment
+                for serv in cart:
+                    service = serv['product']
+                    appointment = Appointment.objects.create(
+                        date=time_date,
+                        animal=selected_animal,
+                        service=service
+                    )
 
-        return redirect('home_page')
+                for item in cart:
+                    cart_remove(request, item['product'].id)
 
-    return render(request, 'cart/order.html', {'cart': cart, 'form': form})
+                return redirect('home_page')
+
+    # Передаем сообщение об ошибке в контекст шаблона
+    return render(request, 'cart/order.html', {'cart': cart, 'form': form, 'error_message': error_message})
