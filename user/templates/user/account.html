@@ -1,0 +1,91 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="content">
+        <div class="container">
+            <div class="">
+                <div class="container-spread__inner">
+                    <nav class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+                        <span class="breadcrumbs__item d-inline-flex" itemprop="itemListElement" itemscope
+                              itemtype="http://schema.org/ListItem">
+                            <a itemprop="item" class="breadcrumbs__link" href="/">
+                                <span itemprop="name">Главная</span>
+                            </a>
+                            <meta itemprop="position" content="1"/>
+                        </span>
+                        <span class="breadcrumbs__item d-inline-flex" itemprop="itemListElement" itemscope
+                              itemtype="http://schema.org/ListItem">
+                            <a itemprop="item" class="breadcrumbs__link" href="{% url 'account' %}">
+                                <span itemprop="name">Профиль</span>
+                            </a>
+                            <meta itemprop="position" content="2"/>
+                        </span>
+                    </nav>
+                    <div class="custom-h1">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h1>ВетКлиника Баумана</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="border-radius: 20px; border-color: orange;">
+                <style>
+                    .helptext {
+                        display: none
+                    }
+
+                    .regi {
+                        border-color: orangered;
+                        border-radius: 7px;
+                        height: 52px;
+                        background: none;
+                        width: 150px;
+                    }
+
+                    .form-label {
+                        display: inline-block;
+                        min-width: 150px;
+                        vertical-align: center;
+                    }
+                </style>
+                <h2>Профиль пользователя</h2>
+                <p><strong>Имя:</strong> {{ client.name }}</p>
+                <p><strong>Почта:</strong> {{ client.email }}</p>
+                <p><strong>Телефон:</strong> {{ client.phone }}</p>
+                <h3>Животные:</h3>
+                <ul>
+                    {% for animal in animals %}
+                        <li>{{ animal.name }} - {{ animal.species }} - {{ animal.breed }} - {{ animal.birth_date }}</li>
+                    {% endfor %}
+                </ul>
+
+                <a href="{% url 'edit' %}"><button class="regi" data-toggle="modal" data-target="#editProfileModal">Изменить профиль</button></a>
+                <a href="{% url 'add_animal' %}"><button class="regi" data-toggle="modal" data-target="#addAnimalModal">Добавить животное</button></a>
+            </div>
+            						<a href="{% url 'logout' %}"><button type="submit" class="regi" style="margin: 50px; background: #e83333;"><img src="{% static 'user/logout.svg' %}" style="width: 30px; margin: 5px;">Выйти</button></a>
+
+
+        {% for animal, appointments_list in appointments.items %}
+
+
+    {% if appointments_list %}
+            <h3>{{ animal }}</h3>
+        <ul>
+            {% for appointment in appointments_list %}
+                <li>{{ appointment.date }} - {{ appointment.service }}</li>
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+{% endfor %}
+
+
+
+        </div>
+    </div>
+
+
+{% endblock %}

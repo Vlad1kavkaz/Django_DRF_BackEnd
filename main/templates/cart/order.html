@@ -1,0 +1,104 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="content">
+  <div class="container">
+    <nav class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList"><span class="breadcrumbs__item d-inline-flex" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+							<a itemprop="item" class="breadcrumbs__link" href="/">
+								<span itemprop="name">Главная</span>
+							</a>
+							<meta itemprop="position" content="1" />
+						</span><span class="breadcrumbs__item d-inline-flex" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+							<a itemprop="item" class="breadcrumbs__link" href="/cart/order">
+								<span itemprop="name">Оформление заказа</span>
+							</a>
+							<meta itemprop="position" content="2" />
+						</span></nav>
+    <h1>Оформление заказа</h1>
+    <form method="post">
+      {% csrf_token %}
+      <style>
+        .helptext {
+          display: none;
+        }
+
+        #id_phonenumber, #id_time_date, #id_adress, #id_comment{
+          border-color: orangered;
+          border-radius: 7px;
+          height: 52px;
+        }
+
+        #id_delivery{
+          width: 20px;
+          heoght: 20px;
+        }
+        .form-label {
+          display: inline-block;
+          min-width: 200px;
+          vertical-align: center;
+        }
+
+        .form-error {
+          list-style: none;
+          padding: 0;
+          color: #CC0000;
+        }
+        #id_comment{
+            padding: 9px;
+            border-width: 2px;
+            height: 150px;
+            width: 350px;
+            }
+
+      </style>
+      <script>
+        function toggleAddressField() {
+          var deliveryCheckbox = document.getElementById("id_delivery");
+          var addressField = document.getElementById("id_adress");
+          var commentField = document.getElementById("id_comment");
+
+          if (deliveryCheckbox.checked) {
+            addressField.style.display = "block";
+            commentField.style.display = "block";
+          } else {
+            addressField.style.display = "none";
+            commentField.style.display = "none";
+          }
+        }
+
+      </script>
+      <div class="form-error">{{ form.non_field_errors }}</div>
+      {% for f in form %}
+        {% if f.name == "delivery" %}
+          <h4>
+            {{ f }} <span onclick="toggleAddressField()">Заказать с доставкой</span>
+
+          </h4>
+        {% elif f.name != "adress" %}
+          <h4>
+            <label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}
+          </h4>
+        {% endif %}
+        {% if f.name == "adress" %}
+          <h4 style="display: none;" id="id_adress">
+            <label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}
+          </h4>
+          <h4 style="display: none; color: #fa8805;" id="id_comment"><label class="form-label">Обратите внимание, что сумма доставки зависит от вашего адреса и конечная стоимость заказа может измениться.</label></h4>
+        {% endif %}
+        <div class="form-error">{{ f.errors }}</div>
+      {% endfor %}
+        {% for field in form.animals %}
+        <div>
+          {{ field }}
+          <label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn">Оформить</button>
+    </form>
+      <a href="/cart" class="btn" style="margin-top: 30px; background: white; border-color: orangered; border-radius: 12px; color: black;">В корзину</a>
+  </div>
+
+</div>
+{% endblock %}

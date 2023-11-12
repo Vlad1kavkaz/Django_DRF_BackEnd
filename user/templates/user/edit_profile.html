@@ -1,0 +1,80 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="content">
+        <div class="container">
+            <div class="">
+                <div class="container-spread__inner">
+                    <nav class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+                        <span class="breadcrumbs__item d-inline-flex" itemprop="itemListElement" itemscope
+                              itemtype="http://schema.org/ListItem">
+                            <a itemprop="item" class="breadcrumbs__link" href="/">
+                                <span itemprop="name">Главная</span>
+                            </a>
+                            <meta itemprop="position" content="1"/>
+                        </span>
+                        <span class="breadcrumbs__item d-inline-flex" itemprop="itemListElement" itemscope
+                              itemtype="http://schema.org/ListItem">
+                            <a itemprop="item" class="breadcrumbs__link" href="{% url 'account' %}">
+                                <span itemprop="name">Профиль</span>
+                            </a>
+                            <meta itemprop="position" content="2"/>
+                        </span>
+                    </nav>
+                    <div class="custom-h1">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h1>ВетКлиника Баумана</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="border-radius: 20px; border-color: orange;">
+                <style>
+                    .helptext {
+                        display: none
+                    }
+
+                    .regi {
+                        border-color: orangered;
+                        border-radius: 7px;
+                        height: 52px;
+                        background: none;
+                        width: 150px;
+                    }
+
+                    .form-label {
+                        display: inline-block;
+                        min-width: 150px;
+                        vertical-align: center;
+                    }
+                </style>
+                <h2>Изменить данные аккаунта</h2>
+                <form method="post" action="{% url 'edit' %}">
+                    {% csrf_token %}
+                    {# Форма редактирования данных пользователя #}
+                    {% for field in user_form %}
+                        <h4><label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}: </label>{{ field }}
+                        </h4>
+                        <div class="form-error">{{ field.errors }}</div>
+                    {% endfor %}
+
+                    <h3>Изменить данные животных:</h3>
+                    {% for animal_form in animal_forms %}
+                        <h4><label class="form-label" for="{{ animal_form.id_for_label }}">{{ animal_form.label }}: </label>{{ animal_form }}
+                        </h4>
+                        <div class="form-error">{{ animal_form.errors }}</div>
+                    {% endfor %}
+
+                    <button type="submit" class="regi" style="width: 170px; height: flex; display: inline-block;">Сохранить изменения</button>
+                </form>
+            </div>
+            <a href="{% url 'logout' %}"><button type="submit" class="regi"
+                                                    style="margin: 50px; background: #e83333;"><img
+                    src="{% static 'user/logout.svg' %}" style="width: 30px; margin: 5px;">Выйти
+            </button></a>
+        </div>
+    </div>
+{% endblock %}

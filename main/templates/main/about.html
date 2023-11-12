@@ -1,0 +1,117 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content ">
+					<div class="container ">
+
+<style>
+        /* Стили для оформления раздела "О нас" */
+        .about-section {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-size: 24px;
+        }
+
+        .about-section p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .about-section .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .about-section .cta-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+    <div class="about-section">
+        <h2>Добро пожаловать в нашу ветеринарную клинику</h2>
+        <p>Мы - команда преданных профессионалов, влюбленных в животных и заботящихся о их здоровье и благополучии. Наша ветеринарная клиника предоставляет высококачественные медицинские услуги для всех видов домашних животных.</p>
+        <p>Мы понимаем, что ваш питомец - это член семьи, поэтому мы стремимся обеспечить ему наилучшую заботу и лечение. Наши опытные ветеринары осуществляют полный спектр услуг - от профилактических осмотров и лечения заболеваний до хирургических вмешательств и экстренной помощи.</p>
+        <p>У нас в клинике современное оборудование и мы следим за последними технологическими достижениями в ветеринарии. Мы постоянно обновляемся и обучаемся, чтобы быть в курсе последних научных разработок и лечения. Ваше доверие и благосостояние вашего питомца - наша главная цель.</p>
+        <p>Мы также предлагаем услуги груминга, чтобы ваш питомец всегда выглядел и чувствовал себя замечательно. Мы уделяем внимание каждой детали и стремимся сделать процесс приятным и комфортным для вашего питомца.</p>
+        <p>Наша дружелюбная и отзывчивая команда с удовольствием ответит на все ваши вопросы и поможет принять лучшее решение для вашего питомца. Мы искренне надеемся, что вы выберете нашу ветеринарную клинику в качестве партнера в заботе о вашем любимце.</p>
+        <div class="content" style="height:50px; text-align:center;">
+		<div class="row align-items-center">
+			<span class="col">
+				<h2>Наша команда</h2>
+
+			</span></div></div></div>
+
+
+
+
+<script>
+    setTimeout(function() {
+        var popup = document.querySelector('.popup');
+        popup.style.display = 'none';
+
+
+    }, 10000);
+</script>
+
+
+
+<style>
+    .catalog-sections {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+</style>
+      <div class="catalog-sections matrix matrix--big row">
+      <div class="card" style="width: 18rem; border: none; border-radius: 20px; margin-left: auto; margin-right: auto;">
+  <a class="menu" >  <img src="{% static 'main/vetvrachi/vet5.webp' %}" class="card-img-top" alt="bread" style="border-radius: 12px;">
+<div class="card-body" style="">
+		<h2 style="">Павлова Арина Николаевна</h2>
+        <p>Заведующая хирургическим отделением, невролог, нейрохирург </p>
+  </div></a>
+
+      </div><div class="card" style="width: 18rem; border: none; border-radius: 20px; margin-left: auto; margin-right: auto;">
+ <a class="menu">
+    <img src="{% static 'main/vetvrachi/vet2.webp' %}" class="card-img-top" alt="cake" style="border-radius: 12px;">
+    <div class="card-body" style="">
+        <h2 style="">Родионов Иван Ильич</h2>
+        <p>Врач-онколог</p>
+    </div>
+ </a></div>
+
+      <div class="card" style="width: 18rem; border: none; border-radius: 20px; margin-left: auto; margin-right: auto;">
+ <a class="menu">
+    <img src="{% static 'main/vetvrachi/vet3.webp' %}" class="card-img-top" alt="cake" style="border-radius: 12px;">
+    <div class="card-body" style="">
+        <h2 style="">Самойлова Юлия Леонидовна</h2>
+        <p>Врач-терапевт, стоматолог-терапевт</p>
+    </div>
+ </a></div>
+<div class="card" style="width: 18rem; border: none; border-radius: 20px; margin-left: auto; margin-right: auto;">
+ <a class="menu">
+    <img src="{% static 'main/vetvrachi/vet1.webp' %}" class="card-img-top" alt="cake" style="border-radius: 12px;">
+    <div class="card-body" style="">
+        <h2 style="">Невронова Оксана Витальевна</h2>
+        <p>Ветеринарный врач-офтальмолог</p>
+    </div>
+ </a></div>
+          <div class="card" style="width: 18rem; border: none; border-radius: 20px; margin-left: auto; margin-right: auto;">
+ <a class="menu">
+    <img src="{% static 'main/vetvrachi/vet4.webp' %}" class="card-img-top" alt="cake" style="border-radius: 12px;">
+    <div class="card-body" style="">
+        <h2 style="">Филимонова Евгения Олеговна</h2>
+        <p>Руководитель лаборатории</p>
+    </div>
+ </a></div>
+      </div>
+                    </div></div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="content ">
+					<div class="container ">
+        <div class=""><div class="container-spread__inner"><nav class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList"><span class="breadcrumbs__item d-inline-flex" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+							<a itemprop="item" class="breadcrumbs__link" href="/">
+								<span itemprop="name">Главная</span>
+							</a>
+							<meta itemprop="position" content="1" />
+						</span><span class="breadcrumbs__item d-inline-flex" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+							<a itemprop="item" class="breadcrumbs__link" href="{% url 'search' %}">
+								<span itemprop="name">Поиск</span>
+							</a>
+							<meta itemprop="position" content="2" />
+						</span></nav><div class="custom-h1">
+		<div class="row align-items-center">
+			<div class="col">
+				<h1>ВетКлиника Баумана</h1>
+			</div></div></div></div>
+			<div id="imageContainer">
+
+							<div class="d-none">
+</div></div><div class="catalog-sections matrix matrix--big row" style="">
+                {% if product %}
+  {% for el in product %}
+    <style>
+    .card {
+      background-color: #fff;
+    }
+
+    /* ... остальные стили ... */
+
+    </style>
+
+    <div class="card" style=" height: 670px; width: 23rem; border: none; border-radius: 20px; margin-left: auto; margin-right: auto; padding: 10px;">
+      <a class="menu">  <img src="{{ el.image.url }}" class="card-img-top" alt="barbecue"></a>
+      <div class="card-body" style="text-align: center;">
+        <h4 style="">{{ el.title }}</h4>
+        {% if el.descriptoin != "--" %}
+          <h6 >{{ el.descriptoin }}</h6>
+        {% endif %}
+        {% if el.compound != "--" %}
+          <h6 >{{ el.compound }}</h6>
+        {% endif %}
+      </div>
+
+      <form action="" method="post" class="form">
+        <style>
+           form{
+  vertical-align: bottom;
+position: absolute;
+bottom: 20px;
+ }
+  #id_quantity{
+   border-radius: 7px;
+   width: 40px;
+   text-align:center;
+   border-color: orange;
+   margin-left: auto;
+   margin-right: auto;
+  }
+  select{
+   margin-left: auto;
+   margin-right: auto;
+  }
+
+        </style>
+        {{ cart_product_form.quantity }}
+        {% csrf_token %}
+        <button class="btn" style="border-radius: 22px; border-color: orangered; background: white; width: 200px; margin-left: 15px; margin-right: auto; padding: 5px; box-shadow: 0 8px 16px 0 rgba(255,117,20, 0.3);">
+          <div style="display: flex; margin: auto;">
+            <span style="margin: auto; color: black; margin-right: 20px;">{{ el.cost }} ₽</span>
+            <span style="margin: auto; color: orangered; margin-right: 3px;"> + </span>
+            <img src="{% static 'main/img/backet.svg' %}" style="width: 33px;">
+          </div>
+        </button>
+      </form>
+    </div>
+  {% endfor %}
+{% else %}
+  <h2 style="text-align: center;"><img src="{% static 'main/img/sad.svg' %}" style="width: 35px; margin: 7px;">Извините, ничего не нашлось...
+  Попробуйте изменить свой запрос</h2>
+{% endif %}</div></div></div></div>
+
+{% endblock %}
+

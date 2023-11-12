@@ -1,0 +1,117 @@
+{% extends "main/layout.html" %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <div class="container ">
+        <nav class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList"><span class="breadcrumbs__item d-inline-flex" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+							<a itemprop="item" class="breadcrumbs__link" href="/">
+								<span itemprop="name">Главная</span>
+							</a>
+							<meta itemprop="position" content="1" />
+						</span><span class="breadcrumbs__item d-inline-flex" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+							<a itemprop="item" class="breadcrumbs__link" href="/cart">
+								<span itemprop="name">Корзина</span>
+							</a>
+							<meta itemprop="position" content="2" />
+						</span></nav>
+<h1>Корзина покупок</h1>
+<table class="cart">
+
+  <tbody>
+  {% for item in cart %}
+    {% with product=item.product %}
+  <style>
+      .cart_prod{
+        text-align: center;
+        margin: auto;
+        padding: 10px;
+        max-width: 200px;
+
+      }
+      .num{
+        text-align: center;
+        margin: auto;
+        padding: 10px;
+        max-width: 52px;
+
+      }
+
+  </style>
+    <div style="background: #fffbef; display: flex; margin: auto; padding: 7px;">
+
+            <div style="text-align: center;" class="cart_prod">{{ product.name }}</div>
+            <div class="num cart_prod" style="text-align: center;">{{ product.category }}</div>
+            <div class="num cart_prod" style="text-align: center;">{{ product.animal_species }}</div>
+            <div style="text-align: center;" class="cart_prod"><a href="{% url 'cart:cart_remove' product.id %}"><img src="{% static 'cart/delete.svg' %}" style="width: 30px; margin: auto;"></a></div>
+
+            <div class="num cart_prod" style="text-align: center;">{{ item.price }} ₽</div>
+
+          </div>
+        {% endwith %}
+      {% endfor %}
+      <div class="total" style="display: flex;">
+          <style>
+              .itog{
+                    margin: auto;
+              }
+
+          </style>
+        <div style="font-size: 30px; text-align: center;" class="itog" >Итого: </div>
+
+        <div class="num itog" style="text-align: center; font-size: 30px;">{{ cart.get_total_price }} ₽</div>
+      </div>
+    </tbody>
+  </table>
+  <p class="text-right">
+      <style>
+          .aa {
+                width: 30px;
+          }
+      </style>
+      <a href="{% url 'home_page' %}" class="btn aa" style="margin: 5px; backgound: white; border-color: orangered; color: white;">В каталог</a>
+
+      <style>
+          <style>
+    .empty-cart-message {
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #ffcccc;
+        color: #800000;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+</style>
+      </style>
+      <style>
+          .loginimage{
+                width: 30px;
+                margin: 3px;
+          }
+      </style>
+
+    {% if request.user.is_authenticated %}{% if cart %}
+    <a href="order/"><button class="btn aa" style="width: 40px; margin: 5px; backgound: white; border-color: orangered; color: white">Оформить заказ</button></a>
+{% else %}
+    <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-html="true" data-bs-content="<div><img src='{% static 'cart/red_flag.svg' %}' class='loginimage'><span>Невозможно оформить заказ с пустой корзиной, добавьте товары</span></div>">Оформить заказ
+  </button>
+{% endif %}{% else %}<button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-html="true" data-bs-content="<a href='{% url 'login' %}'><img src='{% static 'user/login.svg' %}' class='loginimage'><span>Войдите в аккаунт, чтобы оформить заказ</span></a>">
+    Оформить заказ
+  </button>{% endif %}
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+      return new bootstrap.Popover(popoverTriggerEl)
+    })
+
+  </script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </p>
+    </div></div>
+{% endblock %}

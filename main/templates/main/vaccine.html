@@ -1,0 +1,100 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content ">
+					<div class="container ">
+                        <div class="container-spread__inner"><nav class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList"><span class="breadcrumbs__item d-inline-flex" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+							<a itemprop="item" class="breadcrumbs__link" href="/">
+								<span itemprop="name">Главная</span>
+							</a>
+							<meta itemprop="position" content="1" />
+						</span><span class="breadcrumbs__item d-inline-flex" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+							<a itemprop="item" class="breadcrumbs__link" href="{% url 'vaccine' %}">
+								<span itemprop="name">Вакцинация</span>
+							</a>
+							<meta itemprop="position" content="2" />
+						</span></nav><div class="custom-h1">
+		<div class="row align-items-center">
+			<div class="col">
+				<h1>Вакцинация</h1>
+			</div></div></div></div>
+
+
+<div class="catalog-sections matrix matrix--big row">
+<div class="card" style="width: 14rem; border: none; border-radius: 20px; margin-left: auto; margin-right: auto;">
+ <a class="menu">
+    <img src="{% static 'main/animal/dogva.webp' %}" class="card-img-top" alt="cake" style="border-radius: 12px;">
+    <div class="card-body" style="">
+        {% for el in vaccine %}
+    {% if el.animal_species == 'Собака' %}
+    <div style="">
+        <h4 style="display:inline;font-weight:italic;">{{ el.name }} от</h4>
+        <form method="post" action="{% url 'cart:cart_add' product_id=el.id %}">
+    {% csrf_token %}
+    <input type="submit" value="{{ el.price }} ₽" class="add-to-cart">
+</form>
+    </div>
+    {% endif %}
+{% endfor %}
+    </div>
+ </a></div>
+
+
+<div class="card" style="width: 14rem; border: none; border-radius: 20px; margin-left: auto; margin-right: auto;">
+ <a class="menu">
+    <img src="{% static 'main/animal/catva.webp' %}" class="card-img-top" alt="cake" style="border-radius: 12px;">
+    <div class="card-body" style="">
+        {% for el in vaccine %}
+    {% if el.animal_species == 'Кошка' %}
+    <div style="">
+        <h4 style="display:inline;font-weight:italic;">{{ el.name }} от</h4>
+        <form method="post" action="{% url 'cart:cart_add' product_id=el.id %}">
+    {% csrf_token %}
+    <input type="submit" value="{{ el.price }} ₽" class="add-to-cart">
+</form>
+    </div>
+    {% endif %}
+{% endfor %}
+    </div>
+ </a></div>
+
+
+                        <div class="card" style="width: 14rem; border: none; border-radius: 20px; margin-left: auto; margin-right: auto;">
+ <a class="menu">
+    <img src="{% static 'main/animal/popva1.jpg' %}" class="card-img-top" alt="cake" style="border-radius: 12px;">
+    <div class="card-body" style="">
+        {% for el in vaccine %}
+    {% if el.animal_species == 'Попугай' %}
+    <div style="">
+        <h4 style="display:inline;font-weight:italic;">{{ el.name }} от</h4>
+        <form method="post" action="{% url 'cart:cart_add' product_id=el.id %}">
+    {% csrf_token %}
+    <input type="submit" value="{{ el.price }} ₽" class="add-to-cart">
+</form>
+    </div>
+    {% endif %}
+{% endfor %}
+    </div>
+ </a></div>
+
+
+                        <div class="card" style="width: 14rem; border: none; border-radius: 20px; margin-left: auto; margin-right: auto;">
+ <a class="menu">
+    <img src="{% static 'main/animal/horseva.webp' %}" class="card-img-top" alt="cake" style="border-radius: 12px;">
+    <div class="card-body" style="">
+        {% for el in vaccine %}
+    {% if el.animal_species == 'Лошадь' %}
+    <div style="">
+        <h4 style="display:inline;font-weight:italic;">{{ el.name }} от</h4>
+        <form method="post" action="{% url 'cart:cart_add' product_id=el.id %}">
+    {% csrf_token %}
+    <input type="submit" value="{{ el.price }} ₽" class="add-to-cart">
+</form>
+    </div>
+    {% endif %}
+{% endfor %}
+    </div>
+ </a></div></div>
+                        </div></div>
+{% endblock %}
